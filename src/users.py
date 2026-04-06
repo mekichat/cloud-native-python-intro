@@ -15,16 +15,22 @@ users = [] # empty list of users
 # if below 14 NO REGISTER ALLOWED
 # otherwise its okey
 
-def add_user(name):
-    
+def add_user(name, age):    
     cleaned = name.strip()
+    cleaned_age = age.strip()
+    cleaned_age = int(cleaned_age)
     
-    if len(cleaned) == 0:
+    if len(cleaned) == 0 or cleaned_age == 0:
         return False
     
     if cleaned in users:
+        print(f"the user {cleaned} is already available inside the user list")
         return False
     
+    if cleaned_age < 14:
+        print(f"the provided {cleaned_age} age is below 14 age limt for registeration")
+        return False
+        
     users.append(cleaned)
     return True
 
@@ -35,6 +41,31 @@ def user_exists(name):
     cleaned = name.strip()
     return cleaned in users
 
+def delete_user(name):    
+    cleaned = name.strip()
+    
+    if len(cleaned) == 0:
+        return False
+    
+    if cleaned in users:
+        users.remove(cleaned)
+        return True
+    else:
+        return False
+    
+def update_user(new_name, old_name):    
+    old_cleaned = old_name.strip()
+    new_cleaned = new_name.strip()
+    
+    if len(old_cleaned) == 0 or len(new_cleaned) == 0:
+        return False
+    
+    if old_cleaned in users:
+        idx = users.index(old_name)
+        users[idx] = new_cleaned
+        return True
+    else:
+        return False
 
 
 
@@ -143,5 +174,6 @@ def process_user_input(name):
         
 ##### input_name = input_user_info()
 ####  process_user_input(input_name)
+
 
     

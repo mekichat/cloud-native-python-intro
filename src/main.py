@@ -1,9 +1,13 @@
-from users import add_user, list_users, user_exists
+from users import add_user, list_users, user_exists, delete_user, update_user
 
 # User Input console
 # 1) Fråga efter namn
 # 2) Om använder inte skriver något ge ett fel meddelande
 # 3) Annars hälsa användaren
+
+# TO DO
+# Add Delete to menu
+# Add Update functionto menu
 
 
 def show_menu():
@@ -11,15 +15,22 @@ def show_menu():
     print("1) Add user")
     print("2) List users")
     print("3) Search for users")
-    print("4) Exit")
+    print("4) Delete user")
+    print("5) Update user")
+    print("6) Exit")
+    
+# TO DO
+# Add Delete handler
+# Add Update handler
     
   
 def handle_add_user():
     name = input("Enter your username: ")
-    success = add_user(name)
+    age = input("Enter your agee: ")
+    success = add_user(name, age)
     
     if success:
-        print(f"user {name.strip()} saved")
+        print(f"user {name.strip()} with age {age.strip()} has saved to the user list")
         
     else:
         print("""could not save user
@@ -41,6 +52,32 @@ def handle_search_user():
         print(f"Yes, user {name.strip()} exists")
     else:
         print(f"No, user {name.strip()} does not exist")
+        
+def handle_delete_user():
+    name = input("Enter username to be deleted: ")
+    success = delete_user(name)
+    
+    if success:
+        print(f"user {name.strip()} has been deleted")
+        
+    else:
+        text = """could not find the
+        user name from the existing user list"""
+        print(text)
+        
+def handle_update_user():
+    old_name = input("Enter existing username: ")
+    new_name = input("Enter new username that needs to be updated: ")
+    success = update_user(new_name, old_name)
+    
+    if success:
+        print(f"user {old_name.strip()} is replaced by {new_name.strip()} user name")
+        
+    else:
+        text = """Either the input user names length is empty
+        or the original user name is not exist in the user list"""
+        print(text)
+    
          
 
 def main():
@@ -48,7 +85,7 @@ def main():
     while True:
         show_menu()
         
-        choice = input("Chose an option (1-4): ")
+        choice = input("Chose an option (1-6): ")
         #choice = int(choice)
         if choice == "1":
             handle_add_user()
@@ -57,6 +94,10 @@ def main():
         elif choice == "3":
             handle_search_user()
         elif choice == "4":
+            handle_delete_user()
+        elif choice == "5":
+            handle_update_user()
+        elif choice == "6":
             print("Exiting program bye")
             break
         else:
