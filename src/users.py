@@ -54,18 +54,23 @@ def delete_user(name):
         return False
     
 def update_user(new_name, old_name):    
-    old_cleaned = old_name.strip()
-    new_cleaned = new_name.strip()
+    cleaned_old_name = old_name.strip()
+    cleaned_new_name = new_name.strip()
     
-    if len(old_cleaned) == 0 or len(new_cleaned) == 0:
-        return False
+    if len(cleaned_old_name) == 0:
+        return False, "existing name can not be empty"
+    if len(cleaned_new_name) == 0:
+        return False, "new name can not be empty"
+    if cleaned_old_name not in users:
+        return False, "user not found"
+    if cleaned_new_name in users:
+        return False, "name already taken"
     
-    if old_cleaned in users:
-        idx = users.index(old_name)
-        users[idx] = new_cleaned
-        return True
-    else:
-        return False
+   
+    idx = users.index(cleaned_old_name)
+    users[idx] = cleaned_new_name
+    return True, "new user name updated"
+   
 
 
 

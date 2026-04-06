@@ -68,15 +68,21 @@ def handle_delete_user():
 def handle_update_user():
     old_name = input("Enter existing username: ")
     new_name = input("Enter new username that needs to be updated: ")
-    success = update_user(new_name, old_name)
+    success, message = update_user(new_name, old_name)
     
     if success:
         print(f"user {old_name.strip()} is replaced by {new_name.strip()} user name")
         
-    else:
-        text = """Either the input user names length is empty
-        or the original user name is not exist in the user list"""
-        print(text)
+    else: 
+        if message == "user not found":
+             print(f"User {old_name} does not exist")
+        elif message == "new name can not be empty":
+            print("New username can not be empty")
+        elif message == "existing name can not be empty":
+            print("Existing username can not be empty")
+        elif message == "name already taken":
+             print(f"User {new_name} already exists")           
+     
     
          
 
