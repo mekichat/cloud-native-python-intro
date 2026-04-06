@@ -16,22 +16,25 @@ users = [] # empty list of users
 # otherwise its okey
 
 def add_user(name, age):    
-    cleaned = name.strip()
+    cleaned_name = name.strip()
     cleaned_age = age.strip()
     cleaned_age = int(cleaned_age)
     
-    if len(cleaned) == 0 or cleaned_age == 0:
+    if len(cleaned_name) == 0 or cleaned_age == 0:
         return False
     
-    if cleaned in users:
-        print(f"the user {cleaned} is already available inside the user list")
+    if cleaned_name in users:
+        print(f"the user {cleaned_name} is already available inside the user list")
         return False
     
     if cleaned_age < 14:
         print(f"the provided {cleaned_age} age is below 14 age limt for registeration")
         return False
         
-    users.append(cleaned)
+    users.append({
+        "name": cleaned_name, 
+        "age": cleaned_age
+    })
     return True
 
 def list_users():

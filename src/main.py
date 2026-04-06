@@ -1,4 +1,4 @@
-from users import add_user, list_users, user_exists, delete_user, update_user
+from .users import add_user, list_users, user_exists, delete_user, update_user
 
 # User Input console
 # 1) Fråga efter namn
@@ -26,7 +26,7 @@ def show_menu():
   
 def handle_add_user():
     name = input("Enter your username: ")
-    age = input("Enter your agee: ")
+    age = input("Enter your age: ")
     success = add_user(name, age)
     
     if success:
